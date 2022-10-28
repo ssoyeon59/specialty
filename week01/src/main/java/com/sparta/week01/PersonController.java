@@ -9,10 +9,10 @@ public class PersonController {
     @GetMapping("/myinfo")
     public Person getPerson() {
         Person person = new Person();
-        person.setName("강소연");
-        person.setAddress("경기도 성남시");
-        person.setAge(27);
-        person.setJob("취준생");
+        person.setName("김철수");
+        person.setAddress("경기도 부천시");
+        person.setAge(20);
+        person.setJob("대학생");
         return person;
     }
 }
