@@ -1,33 +1,40 @@
 package com.sparta.week01.controller;
 
-//import org.springframework.web.bind.annotation.GetMapping;
-//import org.springframework.web.bind.annotation.RestController;
-//
-//@RestController
-//public class CourseController {
-//
-//    @GetMapping("/courses")
-//    public Course getCourses {
-//        Course course = new Course();
-//        course.setTitle("웹개발의 봄 스프링");
-//        course.setDays(35);
-//        course.setTutor("남병관");
-//        return course;
-//    }
-//}
+import com.sparta.week01.domain.Course;
+import com.sparta.week01.domain.CourseRepository;
+import com.sparta.week01.domain.CourseRequestDto;
+import com.sparta.week01.service.CourseService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.*;
 
-//import org.springframework.web.bind.annotation.GetMapping;
-//import org.springframework.web.bind.annotation.RestController;
-//
-//@RestController
-//public class CourseController {
-//
-//    @GetMapping("/courses")
-//    public Course getCourses() {
-//        Course course = new Course();
-//        course.setTitle("웹개발의 봄 스프링");
-//        course.setDays(35);
-//        course.setTutor("남병관");
-//        return course;
-//    }
-//}
+import java.util.List;
+
+@RequiredArgsConstructor
+@RestController
+public class CourseController {
+
+    private final CourseRepository courseRepository;
+    private final CourseService courseService;
+
+    @GetMapping("/api/courses")
+    public List<Course> getCourses() {
+        return courseRepository.findAll();
+    }
+
+    @PostMapping("/api/courses") //@PostMapping로 같은 주소라도 방식이 다름을 구분
+    public Course createCourse(@RequestBody CourseRequestDto requestDto) {
+        Course course = new Course(requestDto);
+        return courseRepository.save(course);
+    }
+
+    @PutMapping("/api/courses/{id}")
+    public Long updateCourse(@PathVariable Long id, @RequestBody CourseRequestDto requestDto) {
+        return courseService.update(id,requestDto);
+    }
+
+    @DeleteMapping("/api/courses/{id}")
+    public Long deleteCourse(@PathVariable Long id) {
+        courseRepository.deleteById(id);
+        return id;
+    }
+}

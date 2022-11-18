@@ -1,7 +1,11 @@
-package com.sparta.week01.domain;
+package com.sparta.week01.service;
 
+import com.sparta.week01.domain.Course;
+import com.sparta.week01.domain.CourseRepository;
+import com.sparta.week01.domain.CourseRequestDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @RequiredArgsConstructor
 @Service
